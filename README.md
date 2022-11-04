@@ -7,7 +7,7 @@ This tools rely on Rasdaemon to retreive its data.
 Rasdaemon is a RAS (Reliability, Availability and Serviceability) logging tool.
 Repository available here: http://git.infradead.org/users/mchehab/rasdaemon.git
 
-By default prometheus-rasdaemon-exporter listens on port 9147 .
+By default prometheus-rasdaemon-exporter listens on 0.0.0.0:<to be defined>.
 
 ### Installation
 

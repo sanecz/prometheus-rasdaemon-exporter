@@ -37,7 +37,7 @@ class RASCollector:
 
 
 class EXTLOGCollector(RASCollector):
-    query = "select etype, severity, count(*) from extlog_event group by etype, severity"
+    query = "SELECT etype, severity, count(*) FROM extlog_event GROUP BY etype, severity"
 
     def get_count(self) -> CounterMetricFamily:
         return CounterMetricFamily(
@@ -48,7 +48,7 @@ class EXTLOGCollector(RASCollector):
 
 
 class DEVLINKCollector(RASCollector):
-    query = "select dev_name, count(*) from devlink_event group by dev_name"
+    query = "SELECT dev_name, count(*) FROM devlink_event GROUP BY dev_name"
 
     def get_count(self) -> CounterMetricFamily:
         return CounterMetricFamily(
@@ -59,7 +59,7 @@ class DEVLINKCollector(RASCollector):
 
 
 class DISKCollector(RASCollector):
-    query = "select dev, count(*) from disk_errors group by dev"
+    query = "SELECT dev, count(*) FROM disk_errors GROUP BY dev"
 
     def get_count(self) -> CounterMetricFamily:
         return CounterMetricFamily(
@@ -70,7 +70,7 @@ class DISKCollector(RASCollector):
 
 
 class MCECollector(RASCollector):
-    query = "select error_msg, count(*) from mce_record group by error_msg"
+    query = "SELECT error_msg, count(*) FROM mce_record GROUP BY error_msg"
 
     def get_count(self) -> CounterMetricFamily:
         return CounterMetricFamily(
@@ -81,7 +81,7 @@ class MCECollector(RASCollector):
 
 
 class MCCollector(RASCollector):
-    query = "select err_type, label, count(*) from mc_event group by err_type, label"
+    query = "SELECT err_type, label, count(*) FROM mc_event GROUP BY err_type, label"
 
     def get_count(self) -> CounterMetricFamily:
         return CounterMetricFamily(
@@ -93,8 +93,8 @@ class MCCollector(RASCollector):
 
 class AERCollector(RASCollector):
     query = (
-        "select err_type, err_msg, dev_name, count(*)"
-        "from aer_event group by err_type, err_msg, dev_name"
+        "SELECT err_type, err_msg, dev_name, count(*)"
+        " FROM aer_event GROUP BY err_type, err_msg, dev_name"
     )
 
     def get_count(self) -> CounterMetricFamily:
@@ -131,7 +131,7 @@ def main():
     parser.add_argument(
         "--address",
         help="Address on which to expose metrics and web interface",
-        default=""
+        default="0.0.0.0"
     )
 
     parser.add_argument(
@@ -158,7 +158,7 @@ def main():
     try:
         DB = sqlite3.connect(f"file:{args.db}?mode=ro", check_same_thread=False)
     except sqlite3.OperationalError as e:
-        print(f"Cannot connect to {args.db}: {e}")
+        print(f"Cannot connect to {args.db}: {e}", file=sys.stderr)
         sys.exit(1)
 
     for collector, state, cls in COLLECTORS:
