@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+# pylint:disable=invalid-name,missing-module-docstring,missing-class-docstring,missing-function-docstring
 import argparse
 import sqlite3
 import time
