@@ -37,13 +37,15 @@ class RASCollector:
 
 
 class EXTLOGCollector(RASCollector):
-    query = "SELECT etype, severity, count(*) FROM extlog_event GROUP BY etype, severity"
+    query = (
+        "SELECT etype, severity, count(*) FROM extlog_event GROUP BY etype, severity"
+    )
 
     def get_count(self) -> CounterMetricFamily:
         return CounterMetricFamily(
             "extlog_event",
             "Total of devlink event occured",
-            labels=["extlog_etype", "extlog_severity"]
+            labels=["extlog_etype", "extlog_severity"],
         )
 
 
@@ -54,7 +56,7 @@ class DEVLINKCollector(RASCollector):
         return CounterMetricFamily(
             "devlink_event",
             "Total of devlink event occured",
-            labels=['devlink_dev_name']
+            labels=["devlink_dev_name"],
         )
 
 
@@ -63,9 +65,7 @@ class DISKCollector(RASCollector):
 
     def get_count(self) -> CounterMetricFamily:
         return CounterMetricFamily(
-            "disk_errors",
-            "Total of disk errors occured",
-            labels=['disk_dev']
+            "disk_errors", "Total of disk errors occured", labels=["disk_dev"]
         )
 
 
@@ -74,9 +74,7 @@ class MCECollector(RASCollector):
 
     def get_count(self) -> CounterMetricFamily:
         return CounterMetricFamily(
-            "mce_record",
-            "Total of MCE record occured",
-            labels=['mce_msg']
+            "mce_record", "Total of MCE record occured", labels=["mce_msg"]
         )
 
 
@@ -87,7 +85,7 @@ class MCCollector(RASCollector):
         return CounterMetricFamily(
             "mc_events",
             "Total of Memory Controller events occured",
-            labels=["mc_err_type", "mc_label"]
+            labels=["mc_err_type", "mc_label"],
         )
 
 
@@ -101,7 +99,7 @@ class AERCollector(RASCollector):
         return CounterMetricFamily(
             "aer_events",
             "Total of AER Events occured",
-            labels=["aer_err_type", "aer_err_msg", "aer_dev_name"]
+            labels=["aer_err_type", "aer_err_msg", "aer_dev_name"],
         )
 
 
@@ -120,37 +118,37 @@ def main():
         epilog=(
             "Available error collection will depend on the flags used during the compilation"
             " of rasdaemon, some collectors might not work on default installations"
-        )
+        ),
     )
 
     parser.add_argument(
         "--db",
         help="Path to rasdaemon DB",
-        default="/var/lib/rasdaemon/ras-mc_event.db"
+        default="/var/lib/rasdaemon/ras-mc_event.db",
     )
     parser.add_argument(
         "--address",
         help="Address on which to expose metrics and web interface",
-        default="0.0.0.0"
+        default="0.0.0.0",
     )
 
     parser.add_argument(
         "--port",
         help="Port on which to expose metrics and web interface",
         default=9445,
-        type=int
+        type=int,
     )
     parser.add_argument(
         "--collector-all",
         help="Enable/Disable collecting all errors (default: False)",
-        action="store_true"
+        action="store_true",
     )
 
     for collector, state, cls in COLLECTORS:
         parser.add_argument(
             f"--collector-{collector}",
             help=f"Enable/Disable collecting {collector.upper()} errors (default: {state})",
-            action=f"store_{str(not state).lower()}"
+            action=f"store_{str(not state).lower()}",
         )
 
     args = parser.parse_args()
@@ -172,5 +170,5 @@ def main():
         time.sleep(1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
