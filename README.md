@@ -3,9 +3,10 @@
 ### Introduction
 This is a Prometheus exporter for rasdaemon.
 
-This tools rely on Rasdaemon to retreive its data.
+This tool relies on Rasdaemon to retrieve its data.
+
 Rasdaemon is a RAS (Reliability, Availability and Serviceability) logging tool.
-Repository available here: http://git.infradead.org/users/mchehab/rasdaemon.git
+Rasdaemon is available at http://git.infradead.org/users/mchehab/rasdaemon.git
 
 By default prometheus-rasdaemon-exporter listens on 0.0.0.0:<to be defined>.
 
@@ -23,7 +24,7 @@ pip install prometheus-rasdaemon-exporter
 
 ### Running
 
-A minimal invocation looks like this:
+A minimal invocation looks like:
 
 ```
 prometheus-rasdaemon-exporter
@@ -33,8 +34,8 @@ prometheus-rasdaemon-exporter
 
 ```
   --db DB              Path to rasdaemon DB
-  --address ADDRESS    Address on which to expose metrics and web interface
-  --port PORT          Port on which to expose metrics and web interface
+  --address ADDRESS    Address on which to expose metrics and the web interface
+  --port PORT          Port on which to expose metrics and the web interface
   --collector-all      Enable/Disable collecting all errors (default: False)
   --collector-aer      Enable/Disable collecting AER errors (default: True)
   --collector-mce      Enable/Disable collecting MCE errors (default: True)
@@ -48,8 +49,8 @@ prometheus-rasdaemon-exporter
 
 ### Metrics
 
-Metrics and labels are returned with the same name as used on rasademon database, to avoid collision they are prefixed with their type (aer, mc, mce etc)
-By default, only collecting AER, MC and MCE records are enabled.
+Metrics and labels are returned with the same name as used in the rasdaemon database, to avoid collisions they are prefixed with their type (aer, mc, mce, ...)
+By default, only AER, MC and MCE records are exported.
 
 ```
 # HELP aer_events_total Total of AER Events occured
