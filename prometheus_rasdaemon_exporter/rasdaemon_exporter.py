@@ -43,7 +43,7 @@ class EXTLOGCollector(RASCollector):
 
     def get_count(self) -> CounterMetricFamily:
         return CounterMetricFamily(
-            "extlog_event",
+            "rasdaemon_extlog_event",
             "Total of devlink event occured",
             labels=["extlog_etype", "extlog_severity"],
         )
@@ -54,7 +54,7 @@ class DEVLINKCollector(RASCollector):
 
     def get_count(self) -> CounterMetricFamily:
         return CounterMetricFamily(
-            "devlink_event",
+            "rasdaemon_devlink_event",
             "Total of devlink event occured",
             labels=["devlink_dev_name"],
         )
@@ -65,7 +65,7 @@ class DISKCollector(RASCollector):
 
     def get_count(self) -> CounterMetricFamily:
         return CounterMetricFamily(
-            "disk_errors", "Total of disk errors occured", labels=["disk_dev"]
+            "rasdaemon_disk_errors", "Total of disk errors occured", labels=["disk_dev"]
         )
 
 
@@ -74,7 +74,7 @@ class MCECollector(RASCollector):
 
     def get_count(self) -> CounterMetricFamily:
         return CounterMetricFamily(
-            "mce_record", "Total of MCE record occured", labels=["mce_msg"]
+            "rasdaemon_mce_record", "Total of MCE record occured", labels=["mce_msg"]
         )
 
 
@@ -83,7 +83,7 @@ class MCCollector(RASCollector):
 
     def get_count(self) -> CounterMetricFamily:
         return CounterMetricFamily(
-            "mc_events",
+            "rasdaemon_mc_events",
             "Total of Memory Controller events occured",
             labels=["mc_err_type", "mc_label"],
         )
@@ -97,7 +97,7 @@ class AERCollector(RASCollector):
 
     def get_count(self) -> CounterMetricFamily:
         return CounterMetricFamily(
-            "aer_events",
+            "rasdaemon_aer_events",
             "Total of AER Events occured",
             labels=["aer_err_type", "aer_err_msg", "aer_dev_name"],
         )
