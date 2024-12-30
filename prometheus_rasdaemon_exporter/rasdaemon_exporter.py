@@ -158,7 +158,9 @@ def main():
     args = parser.parse_args()
 
     try:
-        DB = sqlite3.connect(f"file:{args.db}?mode=ro", check_same_thread=False)
+        DB = sqlite3.connect(
+            f"file:{args.db}?mode=ro", check_same_thread=False, uri=True
+        )
     except sqlite3.OperationalError as e:
         print(f"Cannot connect to {args.db}: {e}", file=sys.stderr)
         sys.exit(1)
